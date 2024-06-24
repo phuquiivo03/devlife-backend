@@ -8,7 +8,8 @@ pub type Result<T> = std::result::Result<T, Error>;
 pub enum Error {
     #[error("Database connection failed")]
     DatabaseConnectionFailed,
-
+    #[error("Duplicate hacker id")]
+    FailedToCreateHacker,
     #[error("{0}")]
     Other(String),
 }
@@ -23,6 +24,7 @@ impl IntoResponse for Error {
 
         let msg = match self {
             Error::DatabaseConnectionFailed => self.to_string(),
+            Error:: FailedToCreateHacker => self.to_string(),
             Error::Other(_) => self.to_string(),
         };
         (
